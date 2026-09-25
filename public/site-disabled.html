@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Site temporariamente desativado | AutoFlix</title>
+<meta name="theme-color" content="#101317">
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100svh;background:#101317;color:#f4f4f2;font-family:Arial,Helvetica,sans-serif;display:flex;flex-direction:column}header{padding:36px 6vw;font-size:24px;font-weight:800;letter-spacing:-1px}header span{color:#ffb629}main{flex:1;display:grid;place-items:center;padding:48px 24px 100px}.message{max-width:660px;text-align:center}.symbol{width:76px;height:76px;border:1px solid #52432a;background:#251f16;border-radius:24px;display:grid;place-items:center;margin:0 auto 32px;color:#ffb629}.label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#b2b5bb;margin:0 0 22px}h1{font-size:clamp(36px,6vw,60px);line-height:1.08;letter-spacing:-2px;margin:0 0 24px;font-weight:600}p{color:#a9aeb7;font-size:17px;line-height:1.7;margin:0 auto;max-width:440px}.divider{height:1px;width:48px;background:#ffb629;margin:36px auto}footer{text-align:center;padding:24px;color:#717782;font-size:12px;border-top:1px solid #24282e}@media(max-width:480px){header{padding:28px 24px}main{padding-bottom:64px}h1{letter-spacing:-1px}}
+</style>
+</head>
+<body>
+<header aria-label="AutoFlix">AUTO<span>FLIX</span></header>
+<main><section class="message" aria-labelledby="title">
+<div class="symbol" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect x="9" y="6" width="4" height="20" rx="2" fill="currentColor"/><rect x="19" y="6" width="4" height="20" rx="2" fill="currentColor"/></svg></div>
+<p class="label">Temporariamente indisponível</p>
+<h1 id="title">Site temporariamente<br>desativado.</h1>
+<p>O acesso a este site está suspenso no momento.<br>Por favor, volte mais tarde.</p>
+<div class="divider" aria-hidden="true"></div>
+</section></main>
+<footer>AutoFlix</footer>
+<script>if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(items=>items.forEach(item=>item.update()));}</script>
+</body>
+</html>
