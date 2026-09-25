@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🧹 Limpar Cache - Autoflix</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .container {
+      background: white;
+      padding: 3rem;
+      border-radius: 1rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      max-width: 500px;
+      text-align: center;
+    }
+    h1 {
+      margin: 0 0 1rem 0;
+      color: #333;
+      font-size: 2rem;
+    }
+    p {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+    button:active {
+      transform: translateY(0);
+    }
+    .success {
+      display: none;
+      color: #10b981;
+      font-weight: bold;
+      margin-top: 1rem;
+      font-size: 1.1rem;
+    }
+    .instructions {
+      background: #f3f4f6;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-top: 2rem;
+      text-align: left;
+    }
+    .instructions h3 {
+      margin: 0 0 0.5rem 0;
+      color: #333;
+      font-size: 1.1rem;
+    }
+    .instructions ul {
+      margin: 0;
+      padding-left: 1.5rem;
+    }
+    .instructions li {
+      color: #666;
+      margin-bottom: 0.5rem;
+    }
+    code {
+      background: #e5e7eb;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.25rem;
+      font-family: 'Courier New', monospace;
+      color: #be123c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧹 Limpar Cache</h1>
+    <p>
+      Esta ferramenta irá limpar completamente o cache do navegador, 
+      desregistrar service workers e remover dados armazenados localmente.
+    </p>
+    
+    <button onclick="clearEverything()">
+      🗑️ LIMPAR TUDO AGORA
+    </button>
+    
+    <div class="success" id="success">
+      ✅ Cache limpo com sucesso!
+    </div>
+    
+    <div class="instructions">
+      <h3>📋 Após limpar o cache:</h3>
+      <ul>
+        <li>Recarregue a página com <code>Ctrl+Shift+R</code> (Windows/Linux)</li>
+        <li>Ou <code>Cmd+Shift+R</code> (Mac)</li>
+        <li>Isso garante que o navegador busque todos os arquivos novamente</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    async function clearEverything() {
+      console.log('🧹 Iniciando limpeza total...');
+      
+      let cleared = [];
+      
+      // 1. Limpar todos os caches
+      if ('caches' in window) {
+        try {
+          const names = await caches.keys();
+          for (const name of names) {
+            await caches.delete(name);
+            cleared.push(`Cache: ${name}`);
+            console.log(`✅ Cache deletado: ${name}`);
+          }
+        } catch (err) {
+          console.error('❌ Erro ao limpar caches:', err);
+        }
+      }
+      
+      // 2. Desregistrar service workers
+      if ('serviceWorker' in navigator) {
+        try {
+          const registrations = await navigator.serviceWorker.getRegistrations();
+          for (const registration of registrations) {
+            await registration.unregister();
+            cleared.push('Service Worker desregistrado');
+            console.log('✅ Service worker desregistrado');
+          }
+        } catch (err) {
+          console.error('❌ Erro ao desregistrar service workers:', err);
+        }
+      }
+      
+      // 3. Limpar localStorage
+      try {
+        localStorage.clear();
+        cleared.push('localStorage limpo');
+        console.log('✅ localStorage limpo');
+      } catch (err) {
+        console.error('❌ Erro ao limpar localStorage:', err);
+      }
+      
+      // 4. Limpar sessionStorage
+      try {
+        sessionStorage.clear();
+        cleared.push('sessionStorage limpo');
+        console.log('✅ sessionStorage limpo');
+      } catch (err) {
+        console.error('❌ Erro ao limpar sessionStorage:', err);
+      }
+      
+      // Mostrar mensagem de sucesso
+      document.getElementById('success').style.display = 'block';
+      
+      console.log('✅ Limpeza completa!', cleared);
+      
+      // Recarregar após 2 segundos
+      setTimeout(() => {
+        window.location.reload(true);
+      }, 2000);
+    }
+  </script>
+</body>
+</html>

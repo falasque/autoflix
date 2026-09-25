@@ -1,0 +1,28 @@
+{
+  "name": "autoflix-server",
+  "version": "1.0.0",
+  "description": "Backend server para Autoflix com SQLite",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "build": "echo 'Backend ready'",
+    "sync": "node src/scripts/sync-vehicles.js",
+    "generate-sitemap": "node src/scripts/generate-sitemap.js",
+    "test-xml": "node test-xml.js",
+    "test-sync": "node test-sync.js"
+  },
+  "dependencies": {
+    "axios": "^1.6.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.21.2",
+    "node-cron": "^3.0.3",
+    "sqlite": "^5.1.1",
+    "sqlite3": "^5.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

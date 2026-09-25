@@ -1,0 +1,404 @@
+{
+  "info": {
+    "_postman_id": "autoflix-sqlite-api",
+    "name": "Autoflix SQLite API",
+    "description": "Coleção completa de rotas para o backend Autoflix com SQLite",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "item": [
+        {
+          "name": "Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": ["{{base_url}}"],
+              "path": ["health"]
+            },
+            "description": "Verifica se o servidor está rodando"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Veículos",
+      "item": [
+        {
+          "name": "Listar Todos os Veículos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/vehicles?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vehicles"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            },
+            "description": "Retorna lista paginada de veículos"
+          },
+          "response": []
+        },
+        {
+          "name": "Listar com Filtro - Marca",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/vehicles?page=1&limit=20&brand=Toyota",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vehicles"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "brand",
+                  "value": "Toyota"
+                }
+              ]
+            },
+            "description": "Filtra veículos por marca"
+          },
+          "response": []
+        },
+        {
+          "name": "Listar com Filtro - Combustível",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/vehicles?page=1&limit=20&fuel=Gasolina",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vehicles"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "fuel",
+                  "value": "Gasolina"
+                }
+              ]
+            },
+            "description": "Filtra veículos por combustível"
+          },
+          "response": []
+        },
+        {
+          "name": "Listar com Filtro - Preço",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/vehicles?page=1&limit=20&priceMin=50000&priceMax=150000",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vehicles"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "priceMin",
+                  "value": "50000"
+                },
+                {
+                  "key": "priceMax",
+                  "value": "150000"
+                }
+              ]
+            },
+            "description": "Filtra veículos por faixa de preço"
+          },
+          "response": []
+        },
+        {
+          "name": "Listar com Filtro - Ano",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/vehicles?page=1&limit=20&year=2020",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vehicles"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "year",
+                  "value": "2020"
+                }
+              ]
+            },
+            "description": "Filtra veículos por ano"
+          },
+          "response": []
+        },
+        {
+          "name": "Buscar por Texto",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/vehicles?page=1&limit=20&search=Honda",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vehicles"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "search",
+                  "value": "Honda"
+                }
+              ]
+            },
+            "description": "Busca veículos por texto (nome, marca, modelo)"
+          },
+          "response": []
+        },
+        {
+          "name": "Filtros Combinados",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/vehicles?page=1&limit=20&brand=Toyota&year=2020&fuel=Flex&priceMin=50000&priceMax=150000",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vehicles"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "brand",
+                  "value": "Toyota"
+                },
+                {
+                  "key": "year",
+                  "value": "2020"
+                },
+                {
+                  "key": "fuel",
+                  "value": "Flex"
+                },
+                {
+                  "key": "priceMin",
+                  "value": "50000"
+                },
+                {
+                  "key": "priceMax",
+                  "value": "150000"
+                }
+              ]
+            },
+            "description": "Combinação de múltiplos filtros"
+          },
+          "response": []
+        },
+        {
+          "name": "Ordenar por Preço (ASC)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/vehicles?page=1&limit=20&sort=price&order=ASC",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vehicles"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "sort",
+                  "value": "price"
+                },
+                {
+                  "key": "order",
+                  "value": "ASC"
+                }
+              ]
+            },
+            "description": "Ordena veículos por preço (menor para maior)"
+          },
+          "response": []
+        },
+        {
+          "name": "Detalhes de um Veículo (por ID)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/vehicles/1",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vehicles", "1"]
+            },
+            "description": "Retorna detalhes de um veículo específico pelo ID"
+          },
+          "response": []
+        },
+        {
+          "name": "Detalhes de um Veículo (por Slug)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/vehicles/honda-civic-2020",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vehicles", "honda-civic-2020"]
+            },
+            "description": "Retorna detalhes de um veículo específico pelo slug"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Filtros",
+      "item": [
+        {
+          "name": "Opções de Filtros",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/vehicles/filters/options",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vehicles", "filters", "options"]
+            },
+            "description": "Retorna marcas, anos, combustíveis e faixa de preços disponíveis"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Estatísticas",
+      "item": [
+        {
+          "name": "Visão Geral das Estatísticas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/vehicles/stats/overview",
+              "host": ["{{base_url}}"],
+              "path": ["api", "vehicles", "stats", "overview"]
+            },
+            "description": "Retorna estatísticas gerais (total, preço médio, min/max)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sincronização",
+      "item": [
+        {
+          "name": "Sincronizar Agora (Manual)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/sync/trigger",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sync", "trigger"]
+            },
+            "description": "Força uma sincronização manual do XML para o SQLite"
+          },
+          "response": []
+        },
+        {
+          "name": "Informações da Última Sincronização",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/sync/info",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sync", "info"]
+            },
+            "description": "Retorna informações sobre a última sincronização realizada"
+          },
+          "response": []
+        },
+        {
+          "name": "Histórico de Sincronizações",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/sync/history?limit=10",
+              "host": ["{{base_url}}"],
+              "path": ["api", "sync", "history"],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                }
+              ]
+            },
+            "description": "Retorna histórico das últimas N sincronizações"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3001",
+      "type": "string"
+    }
+  ]
+}

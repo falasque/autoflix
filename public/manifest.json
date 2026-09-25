@@ -1,0 +1,19 @@
+{
+  "name": "Autoflix Multimarcas",
+  "short_name": "Autoflix",
+  "description": "Autoflix Multimarcas - Sua melhor opção em veículos seminovos",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#16a34a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["automotive", "business"],
+  "lang": "pt-BR"
+}

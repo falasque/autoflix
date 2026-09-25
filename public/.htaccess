@@ -1,0 +1,49 @@
+# AUTOFLIX - .htaccess Configuration
+# Configuração para SEO, Open Graph e SPA Routing
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Detectar bots de redes sociais e redirecionar para gerador de meta tags
+    RewriteCond %{HTTP_USER_AGENT} (facebookexternalhit|Facebot|Twitterbot|WhatsApp|LinkedInBot|Slackbot|TelegramBot|Discordbot) [NC]
+    RewriteCond %{REQUEST_URI} ^/veiculo/
+    RewriteRule ^veiculo/(.+)$ /api/og-meta.php?slug=$1 [L,QSA]
+
+    # Não reescrever arquivos existentes
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+    # Redirecionar todas as outras requisições para index.html (SPA)
+    RewriteRule . /index.html [L]
+</IfModule>
+
+# Habilitar CORS se necessário
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type"
+</IfModule>
+
+# Configurar tipos MIME
+<IfModule mod_mime.c>
+    AddType image/svg+xml svg svgz
+    AddEncoding gzip svgz
+</IfModule>
+
+# Habilitar compressão
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
+
+# Cache de arquivos estáticos
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+</IfModule>

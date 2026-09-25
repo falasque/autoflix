@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset de Configuração</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 400px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #764ba2;
+        }
+        .success {
+            color: #27ae60;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 Reset de Configuração</h1>
+        <p>Clique no botão abaixo para limpar todas as configurações e cache salvos no navegador.</p>
+        <button onclick="resetConfig()">Resetar Configuração</button>
+        <div class="success" id="success">✅ Configuração resetada! Redirecionando...</div>
+    </div>
+
+    <script>
+        function resetConfig() {
+            // Remove todos os dados do localStorage
+            localStorage.removeItem('site-config');
+            localStorage.removeItem('verda-auto-vehicles-local-cache');
+            localStorage.removeItem('verda-auto-xml-url');
+            
+            // Remove todos os dados do sessionStorage
+            sessionStorage.clear();
+            
+            console.log('✅ Todas as configurações foram resetadas!');
+            
+            document.getElementById('success').style.display = 'block';
+            
+            // Redireciona para a página inicial após 2 segundos
+            setTimeout(() => {
+                window.location.href = '/';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
