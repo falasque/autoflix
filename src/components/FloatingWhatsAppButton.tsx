@@ -1,3 +1,4 @@
+import { normalizeWhatsAppNumber } from '@/lib/whatsapp';
 import React from 'react';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
 
@@ -5,7 +6,7 @@ export const FloatingWhatsAppButton = () => {
   const { config } = useSiteConfig();
 
   const handleWhatsAppClick = () => {
-    const phone = config.contact.phone.replace(/\D/g, '');
+    const phone = normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone);
     const message = encodeURIComponent(
       'Olá! Tenho interesse em conhecer mais sobre os veículos disponíveis.'
     );

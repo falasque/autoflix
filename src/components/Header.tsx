@@ -1,3 +1,4 @@
+import { normalizeWhatsAppNumber } from '@/lib/whatsapp';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, Phone, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -170,7 +171,7 @@ export const Header = ({
             {/* Botão WhatsApp */}
             {config.contact.whatsapp && (
               <a 
-                href={`https://wa.me/${config.contact.whatsapp}?text=Olá%2C+gostaria+de+mais+informações+sobre+os+veículos`}
+                href={`https://wa.me/${normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone)}?text=Olá%2C+gostaria+de+mais+informações+sobre+os+veículos`}
                 target="_blank" 
                 rel="noopener" 
                 className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-extrabold py-2 md:py-3 px-3 md:px-4 rounded-lg transition-colors" 
@@ -276,7 +277,7 @@ export const Header = ({
                   </h3>
                   <div className="flex flex-col gap-2">
                     <a 
-                      href={`tel:${config.contact.phone.replace(/\D/g, '')}`}
+                      href={`tel:${normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone)}`}
                       className="flex items-center gap-3 px-4 py-3 bg-white rounded-lg border border-gray-200 hover:border-green-400 hover:bg-green-50 transition-all duration-200 text-gray-900 font-bold"
                     >
                       <Phone className="h-5 w-5 text-green-600 flex-shrink-0" aria-hidden="true" />
@@ -287,7 +288,7 @@ export const Header = ({
                     </a>
                     {config.contact.whatsapp && (
                       <a 
-                        href={`https://wa.me/${config.contact.whatsapp}?text=Olá%2C+gostaria+de+mais+informações+sobre+os+veículos`}
+                        href={`https://wa.me/${normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone)}?text=Olá%2C+gostaria+de+mais+informações+sobre+os+veículos`}
                         target="_blank" 
                         rel="noopener" 
                         className="flex items-center gap-3 px-4 py-3 bg-green-50 rounded-lg border border-green-200 hover:border-green-400 hover:bg-green-100 transition-all duration-200 text-gray-900 font-bold"
@@ -368,7 +369,7 @@ const GlobalFinanceModal = ({ onClose, config }: any) => {
     
     mensagem += `*Parcelas:* ${parcelas}x%0A%0A*DADOS DO CLIENTE*%0A*Nome:* ${formData.nome}%0A%0AQuero simular o financiamento de um veículo.`;
     
-    const phoneNumber = config.contact.phone.replace(/\D/g, '');
+    const phoneNumber = normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone);
     window.open(`https://wa.me/${phoneNumber}?text=${mensagem}`, '_blank');
     onClose();
   };

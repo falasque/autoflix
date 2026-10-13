@@ -1,3 +1,4 @@
+import { normalizeWhatsAppNumber } from '@/lib/whatsapp';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Home, Search, Phone, MessageCircle } from 'lucide-react';
@@ -8,7 +9,7 @@ export default function NotFound() {
   const { config } = useSiteConfig();
 
   const handleWhatsApp = () => {
-    const whatsappNumber = config.contact.phone.replace(/\D/g, '');
+    const whatsappNumber = normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone);
     const message = encodeURIComponent('Olá! Estava navegando no site e preciso de ajuda.');
     window.open(`https://wa.me/${whatsappNumber}?text=${message}`, '_blank');
   };
@@ -122,7 +123,7 @@ export default function NotFound() {
             </a>
             <span className="hidden sm:block text-gray-300">|</span>
             <a
-              href={`https://wa.me/${config.contact.phone.replace(/\D/g, '')}`}
+              href={`https://wa.me/${normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone)}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 text-gray-700 hover:text-green-600 transition-colors font-medium"

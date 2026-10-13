@@ -1,3 +1,4 @@
+import { normalizeWhatsAppNumber } from '@/lib/whatsapp';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
@@ -51,7 +52,7 @@ const Contato = () => {
                         <h3 className="font-semibold text-lg text-gray-900 mb-1">Telefone</h3>
                         <p className="text-gray-600">{config.contact.phone}</p>
                         <Button asChild size="sm" className="mt-2">
-                          <a href={`tel:${config.contact.phone.replace(/\D/g, '')}`}>
+                          <a href={`tel:${normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone)}`}>
                             Ligar Agora
                           </a>
                         </Button>
@@ -69,7 +70,7 @@ const Contato = () => {
                           <p className="text-gray-600">Atendimento rápido e direto</p>
                           <Button asChild size="sm" className="mt-2 bg-green-600 hover:bg-green-700">
                             <a 
-                              href={`https://wa.me/${config.contact.whatsapp}?text=Olá%2C+gostaria+de+mais+informações+sobre+os+veículos`}
+                              href={`https://wa.me/${normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone)}?text=Olá%2C+gostaria+de+mais+informações+sobre+os+veículos`}
                               target="_blank"
                               rel="noopener noreferrer"
                             >

@@ -1,3 +1,4 @@
+import { normalizeWhatsAppNumber } from '@/lib/whatsapp';
 import React, { useState } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -17,7 +18,7 @@ const Contact = () => {
     e.preventDefault();
     
     const texto = `*Contato via Site*%0A%0A*Nome:* ${encodeURIComponent(formData.nome)}%0A*Assunto:* ${encodeURIComponent(formData.assunto)}%0A*Mensagem:* ${encodeURIComponent(formData.mensagem)}`;
-    const phoneNumber = config.contact.phone.replace(/\D/g, '');
+    const phoneNumber = normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone);
     
     window.open(`https://wa.me/${phoneNumber}?text=${texto}`, '_blank');
     
@@ -43,7 +44,7 @@ const Contact = () => {
     }
   ];
 
-  const phoneNumber = config.contact.phone.replace(/\D/g, '');
+  const phoneNumber = normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone);
   const whatsappLink = `https://wa.me/${phoneNumber}?text=Olá%2C+gostaria+de+mais+informações`;
   const googleMapsLink = `https://www.google.com/maps/search/${encodeURIComponent(config.address.street + ', ' + config.address.city + ', ' + config.address.state)}`;
 
@@ -98,7 +99,7 @@ const Contact = () => {
                         <div>
                           <h3 className="text-lg font-semibold text-gray-900 mb-1">Telefone</h3>
                           <p className="text-gray-600">{config.contact.phone}</p>
-                          <a href={`tel:${phoneNumber}`} className="text-green-600 hover:text-green-800 font-medium mt-2 inline-block">
+                          <a href={`tel:${config.contact.phone.replace(/\D/g, '')}`} className="text-green-600 hover:text-green-800 font-medium mt-2 inline-block">
                             Ligar agora
                           </a>
                         </div>
@@ -235,11 +236,11 @@ const Contact = () => {
                           className="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500"
                         />
                         <label htmlFor="termos" className="ml-3 text-sm text-gray-600">
-                          Concordo com a{' '}
-                          <a href="#" className="text-green-600 hover:text-green-800">
+                          Li a{' '}
+                          <a href="/privacidade" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-800">
                             Política de Privacidade
                           </a>{' '}
-                          e autorizo o contato por telefone e e-mail.
+                          e desejo continuar o atendimento pelo WhatsApp.
                         </label>
                       </div>
 

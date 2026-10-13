@@ -1,3 +1,4 @@
+import { normalizeWhatsAppNumber } from '@/lib/whatsapp';
 import { Phone, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
@@ -20,7 +21,7 @@ export const VehicleHeroSection = ({
 }: VehicleHeroSectionProps) => {
   const { config } = useSiteConfig();
   
-  const phoneNumber = config.contact.phone.replace(/\D/g, '');
+  const phoneNumber = normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone);
   const whatsappLink = `https://wa.me/${phoneNumber}?text=Olá,%20tenho%20interesse%20no%20${encodeURIComponent(vehicleName)}%20anunciado%20por%20R$%20${vehiclePrice.toLocaleString('pt-BR')}.%20Pode%20me%20dar%20mais%20informações?`;
   
   const formatPrice = (price: number) => {
@@ -63,7 +64,7 @@ export const VehicleHeroSection = ({
           {/* Botões Mobile - 2 colunas compactas */}
           <div className="grid grid-cols-2 gap-2 mb-4">
             <a 
-              href={`tel:${phoneNumber}`}
+              href={`tel:${config.contact.phone.replace(/\D/g, '')}`}
               className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-3 rounded-xl transition-all hover:shadow-xl active:scale-95 text-xs sm:text-sm shadow-lg"
             >
               <Phone className="h-5 w-5 flex-shrink-0" />
@@ -103,7 +104,7 @@ export const VehicleHeroSection = ({
           {/* Botões Desktop - Em destaque */}
           <div className="flex flex-col gap-3 md:gap-4 justify-center">
             <a 
-              href={`tel:${phoneNumber}`}
+              href={`tel:${config.contact.phone.replace(/\D/g, '')}`}
               className="flex items-center justify-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 md:py-5 px-6 md:px-8 rounded-2xl transition-all hover:shadow-2xl active:scale-95 text-base md:text-lg shadow-lg"
             >
               <Phone className="h-6 w-6 md:h-7 md:w-7" />

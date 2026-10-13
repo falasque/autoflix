@@ -1,3 +1,4 @@
+import { normalizeWhatsAppNumber } from '@/lib/whatsapp';
 import { Phone, MapPin, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
@@ -17,10 +18,10 @@ const WhatsAppIcon = () => (
 export const Footer = () => {
   const { config } = useSiteConfig();
   
-  const phoneNumber = config.contact.phone.replace(/\D/g, '');
+  const phoneNumber = normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone);
   const whatsappLink = `https://wa.me/${phoneNumber}?text=Olá%2C+gostaria+de+mais+informações+sobre+os+veículos`;
   
-  const secondaryPhoneNumber = config.secondaryStore?.phone.replace(/\D/g, '') || '';
+  const secondaryPhoneNumber = normalizeWhatsAppNumber(config.secondaryStore?.phone || '');
   const secondaryWhatsappLink = `https://wa.me/${secondaryPhoneNumber}?text=Olá%2C+gostaria+de+mais+informações+sobre+os+veículos`;
   
   return (
@@ -59,7 +60,7 @@ export const Footer = () => {
                 <div>
                   <p className="text-xs text-gray-400">Telefone</p>
                   <a 
-                    href={`tel:${phoneNumber}`} 
+                    href={`tel:${config.contact.phone.replace(/\D/g, '')}`} 
                     className="text-xl md:text-2xl font-bold text-white hover:text-green-400 transition-colors"
                   >
                     {config.contact.phone}
@@ -235,6 +236,6 @@ export const Footer = () => {
           <p>© {new Date().getFullYear()} {config.name}. Todos os direitos reservados.</p>
         </div>
       </div>
-    </footer>
+    <div className="pb-6 text-center"><Link to="/privacidade" className="text-sm text-gray-300 underline hover:text-white">Política de Privacidade</Link></div></footer>
   );
 };

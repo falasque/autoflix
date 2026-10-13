@@ -1,6 +1,6 @@
 // ✅ Service Worker com LIMPEZA FORÇADA de cache antigo
 
-const CACHE_VERSION = 'v7'; // FORÇAR LIMPEZA TOTAL
+const CACHE_VERSION = 'v8-contact-fixes'; // FORÇAR LIMPEZA TOTAL
 const STATIC_CACHE = `static-${CACHE_VERSION}`;
 const IMAGE_CACHE = `images-${CACHE_VERSION}`;
 const API_CACHE = `api-${CACHE_VERSION}`;

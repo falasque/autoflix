@@ -1,3 +1,4 @@
+import { normalizeWhatsAppNumber } from '@/lib/whatsapp';
 import React, { useState } from 'react';
 import { X, CreditCard, DollarSign, Calendar, User } from 'lucide-react';
 import { useSiteConfig } from '@/contexts/SiteConfigContext';
@@ -54,7 +55,7 @@ export const FinanceModal: React.FC<FinanceModalProps> = ({
       `*Link do Veículo:* ${vehicleUrl}%0A%0A` +
       `_Aguardo retorno com as melhores condições de financiamento!_`;
 
-    const phoneNumber = config.contact.phone.replace(/\D/g, '');
+    const phoneNumber = normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone);
     window.open(`https://wa.me/${phoneNumber}?text=${mensagem}`, '_blank');
 
     setFormData({ nome: '', valorEntrada: '', parcelas: '48' });

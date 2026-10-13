@@ -15,6 +15,7 @@ import { analytics } from "@/lib/analytics";
 import Index from "./pages/Index";
 import VehicleDetails from "./pages/VehicleDetails";
 import Contact from "./pages/Contact";
+import Privacy from "./pages/Privacy";
 import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -79,6 +80,7 @@ const App = () => {
               <Route path="/" element={<Index />} />
               <Route path="/veiculo/:slug" element={<VehicleDetails />} />
               <Route path="/contato" element={<Contact />} />
+              <Route path="/privacidade" element={<Privacy />} />
               <Route path="/admin/login" element={<AdminLogin />} />
               <Route 
                 path="/admin/dashboard" 

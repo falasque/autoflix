@@ -1,3 +1,4 @@
+import { normalizeWhatsAppNumber } from '@/lib/whatsapp';
 import React, { useState, useMemo, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, MapPin, Phone, MessageCircle, Share2, Copy, ExternalLink, Zap, Gauge, Fuel, Cog, Check, Star, MapPin as MapPinIcon, Share2 as ShareIcon, CreditCard, Briefcase, X } from 'lucide-react';
@@ -191,7 +192,7 @@ const VehicleDetails = () => {
               
               <Button 
                 onClick={() => {
-                  const whatsappNumber = config.contact.phone.replace(/\D/g, '');
+                  const whatsappNumber = normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone);
                   const message = encodeURIComponent(
                     `Olá! Vi que um veículo já foi vendido e gostaria de conhecer outros modelos disponíveis.`
                   );
@@ -257,7 +258,7 @@ const VehicleDetails = () => {
                 </Button>
                 <Button
                   onClick={() => {
-                    const whatsappNumber = config.contact.phone.replace(/\D/g, '');
+                    const whatsappNumber = normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone);
                     const message = encodeURIComponent(
                       `Olá! Gostaria de agendar uma visita para conhecer os veículos disponíveis.`
                     );
@@ -583,7 +584,7 @@ const VehicleDetails = () => {
                 {/* CTAs Desktop */}
                 <div className="space-y-3 pt-6 border-t-2 border-gray-200">
                   <a
-                    href={`https://wa.me/${config.contact.phone.replace(/\D/g, '')}?text=Olá,%20tenho%20interesse%20no%20${encodeURIComponent(vehicle.name.toUpperCase())}%20anunciado%20por%20R$%20${vehicle.price.toLocaleString('pt-BR')}`}
+                    href={`https://wa.me/${normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone)}?text=Olá,%20tenho%20interesse%20no%20${encodeURIComponent(vehicle.name.toUpperCase())}%20anunciado%20por%20R$%20${vehicle.price.toLocaleString('pt-BR')}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={trackWhatsAppClick}
@@ -594,7 +595,7 @@ const VehicleDetails = () => {
                   </a>
                   
                   <a
-                    href={`https://wa.me/${config.contact.whatsapp}?text=Olá!%20Gostaria%20de%20simular%20um%20financiamento%20para%20o%20veículo%20*${encodeURIComponent(vehicle.name)}*%20no%20valor%20de%20*${formatPrice(vehicle.price)}*`}
+                    href={`https://wa.me/${normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone)}?text=Olá!%20Gostaria%20de%20simular%20um%20financiamento%20para%20o%20veículo%20*${encodeURIComponent(vehicle.name)}*%20no%20valor%20de%20*${formatPrice(vehicle.price)}*`}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={trackFinanceClick}
@@ -740,7 +741,7 @@ const VehicleDetails = () => {
             </p>
           </div>
           <a
-            href={`https://wa.me/${config.contact.whatsapp}?text=Olá!%20Gostaria%20de%20simular%20um%20financiamento%20para%20o%20veículo%20*${encodeURIComponent(vehicle.name)}*%20no%20valor%20de%20*${formatPrice(vehicle.price)}*`}
+            href={`https://wa.me/${normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone)}?text=Olá!%20Gostaria%20de%20simular%20um%20financiamento%20para%20o%20veículo%20*${encodeURIComponent(vehicle.name)}*%20no%20valor%20de%20*${formatPrice(vehicle.price)}*`}
             target="_blank"
             rel="noopener noreferrer"
             className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:via-orange-600 hover:to-amber-700 text-white font-black py-4 px-6 rounded-xl transition-all uppercase text-base shadow-2xl hover:shadow-orange-500/50 transform hover:scale-105 border-2 border-amber-400 animate-pulse hover:animate-none relative overflow-hidden group"
@@ -919,14 +920,14 @@ const VehicleDetails = () => {
         {/* ===== 12. BOTÕES CTA FLUTUANTES - Mobile only ===== */}
         <div className="fixed bottom-0 left-0 right-0 px-4 py-4 bg-white border-t border-gray-200 flex gap-3 z-50 lg:hidden">
           <AnimatedButton
-            href={`tel:${config.contact.phone.replace(/\D/g, '')}`}
+            href={`tel:${normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone)}`}
             className="flex-1 flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg uppercase"
           >
             <Phone className="h-5 w-5" />
             <span>LIGAR</span>
           </AnimatedButton>
           <a
-            href={`https://wa.me/${config.contact.phone.replace(/\D/g, '')}?text=Olá,%20tenho%20interesse%20no%20${encodeURIComponent(vehicle.name.toUpperCase())}%20anunciado%20por%20R$%20${vehicle.price.toLocaleString('pt-BR')}`}
+            href={`https://wa.me/${normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone)}?text=Olá,%20tenho%20interesse%20no%20${encodeURIComponent(vehicle.name.toUpperCase())}%20anunciado%20por%20R$%20${vehicle.price.toLocaleString('pt-BR')}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex-1 flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-all uppercase"
@@ -1129,7 +1130,7 @@ const FinanceModalComponent = ({ vehicle, onClose, config, formatPrice }: any) =
 
     const mensagem = `*SIMULAÇÃO DE FINANCIAMENTO*%0A%0A*Veículo:* ${vehicle.name}%0A*Preço:* ${formatPrice(vehicle.price)}%0A*Entrada:* ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(entrada)}%0A*Parcelas:* ${parcelas}x%0A*Valor da Parcela:* ${new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(parcela)}%0A%0A*DADOS DO CLIENTE*%0A*Nome:* ${formData.nome}%0A*Celular:* ${formData.celular}%0A*Email:* ${formData.email}`;
     
-    const phoneNumber = config.contact.phone.replace(/\D/g, '');
+    const phoneNumber = normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone);
     window.open(`https://wa.me/${phoneNumber}?text=${mensagem}`, '_blank');
     onClose();
   };

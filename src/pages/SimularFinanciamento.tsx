@@ -1,3 +1,4 @@
+import { normalizeWhatsAppNumber } from '@/lib/whatsapp';
 import { useState } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
@@ -218,7 +219,7 @@ const SimularFinanciamento = () => {
                           className="w-full bg-green-600 hover:bg-green-700"
                         >
                           <a 
-                            href={`https://wa.me/${config.contact.whatsapp}?text=Olá%2C+fiz+uma+simulação+de+financiamento+e+gostaria+de+mais+informações.+Valor%3A+R%24+${formData.valor}%2C+Parcelas%3A+${formData.parcelas}x+de+${formatCurrency(resultado.valorParcela)}`}
+                            href={`https://wa.me/${normalizeWhatsAppNumber(config.contact.whatsapp || config.contact.phone)}?text=Olá%2C+fiz+uma+simulação+de+financiamento+e+gostaria+de+mais+informações.+Valor%3A+R%24+${formData.valor}%2C+Parcelas%3A+${formData.parcelas}x+de+${formatCurrency(resultado.valorParcela)}`}
                             target="_blank"
                             rel="noopener noreferrer"
                           >
